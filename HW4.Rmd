@@ -1,0 +1,36 @@
+---
+title: "HW4"
+author: "Camille Okonkwo"
+date: "2024-02-17"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+### reading in data
+
+```{r}
+hwdata1 = read_csv("data/hwdata1.csv")
+
+head(hwdata1)
+```
+
+# Cox model
+```{r}
+
+library(survival)
+
+hwdata1$hormone <- as.factor(hwdata1$hormone)
+
+fit = coxph(Surv(rectime,censrec) ~ hormone,
+            data = hwdata1,
+            ties = "efron")
+
+summary(fit)
+
+
+```
+
